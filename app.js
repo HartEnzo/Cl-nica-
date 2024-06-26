@@ -21,6 +21,10 @@ process.stdin.on("data", function(data) {
             console.log("Digite o número da consulta que deseja alterar:");
             listarConsultas();
             opcao = "alterar";
+        } else if (opcao === "Remover") {
+            console.log("Digite o número da consulta que deseja remover:");
+            listarConsultas();
+            opcao = "remover";
         } else if (opcao === "Cancelar") {
             cancelarOperacao();
         }
@@ -29,6 +33,8 @@ process.stdin.on("data", function(data) {
             marcarConsulta(entrada);
         } else if (opcao === "alterar") { 
             processarAlteracao(entrada);
+        }else if (opcao === "remover") {
+            removerConsulta(entrada);
         }
     }
 });
@@ -124,6 +130,17 @@ function processarAlteracao(numeroConsulta) {
         opcao = undefined;
         console.log("Deseja marcar uma consulta? Se sim, digite 'Marcar': ");
     }
+}
+function removerConsulta(numeroConsulta) {
+    let index = parseInt(numeroConsulta) - 1;
+    if (index >= 0 && index < clinica.length) {
+        clinica.splice(index, 1);
+        console.log("Consulta removida com sucesso!");
+    } else {
+        console.log("Número de consulta inválido.");
+    }
+    opcao = undefined;
+    console.log("Deseja marcar outra consulta? Se sim, digite 'Marcar', se não, digite 'Cancelar':");
 }
 
 function cancelarOperacao() {
